@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f1117">
+  <meta name="description" content="SmartReader — Biblioteca de livros acessíveis. Projeto IFNMG Janaúba.">
+  <title>SmartReader — Biblioteca</title>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('sr_theme') || 'theme-dark';
+      document.documentElement.className = savedTheme; // Aplica na raiz <html>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.body.className = savedTheme; // Aplica no <body>
+      });
+    })();
+  </script>
+  <link rel="manifest" href="manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="biblioteca.css">
+</head>
+<body class="theme-dark">
+
+  <!-- Skip link para acessibilidade -->
+  <a href="#main-content" class="skip-link">Pular para o catálogo de livros</a>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar" role="complementary" aria-label="Painel de navegação e acessibilidade">
+
+    <div class="sidebar-header">
+      <div class="logo" aria-label="SmartReader Biblioteca">
+        <span class="logo-icon" aria-hidden="true">◈</span>
+        <span class="logo-text">Smart<strong>Reader</strong></span>
+      </div>
+      <button class="btn-icon" id="btn-toggle-sidebar" aria-label="Fechar painel lateral" aria-expanded="true" aria-controls="sidebar">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navegação do Sistema -->
+    <section class="sidebar-section" aria-labelledby="section-menu">
+      <h2 class="section-label" id="section-menu">Navegação</h2>
+      <a href="index.html" class="btn-action" aria-label="Ir para o Leitor de PDF">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        Leitor de PDF
+      </a>
+    </section>
+
+    <!-- Aparência / Temas -->
+    <section class="sidebar-section" aria-labelledby="section-aparencia">
+      <h2 class="section-label" id="section-aparencia">Aparência</h2>
+      <div class="theme-switcher" role="group" aria-label="Escolher tema">
+        <button class="btn-theme active" data-theme="theme-dark" aria-pressed="true" aria-label="Tema escuro">Escuro</button>
+        <button class="btn-theme" data-theme="theme-light" aria-pressed="false" aria-label="Tema claro">Claro</button>
+        <button class="btn-theme" data-theme="theme-contrast" aria-pressed="false" aria-label="Alto contraste">Contraste</button>
+        <button class="btn-theme" data-theme="theme-sepia" aria-pressed="false" aria-label="Sépia">Sépia</button>
+      </div>
+    </section>
+
+    <!-- Leitura da Página / TTS da Lista -->
+    <section class="sidebar-section" aria-labelledby="section-tts">
+      <h2 class="section-label" id="section-tts">Assistente de Voz</h2>
+      <button class="btn-action" id="btn-read-catalog" aria-label="Ouvir lista de livros visíveis">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M3 2L11 7L3 12V2Z" fill="currentColor"/>
+        </svg>
+        Ouvir Catálogo
+      </button>
+    </section>
+
+    <!-- LIBRAS -->
+    <section class="sidebar-section" aria-labelledby="section-libras">
+      <h2 class="section-label" id="section-libras">Acessibilidade LIBRAS</h2>
+      <button class="btn-action btn-libras" id="btn-libras" aria-label="Traduzir informações da página para LIBRAS">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M4 6C4 4 5.5 2 7 2C8.5 2 10 4 10 6V8C10 10 8.5 12 7 12C5.5 12 4 10 4 8V6Z" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M2 6H4M10 6H12M7 12V14" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        Traduzir catálogo
+      </button>
+    </section>
+
+    <!-- CONTA -->
+    <section class="sidebar-section">
+      <h2 class="section-label">Conta</h2>
+      <button class="btn-action" onclick="abrirLogin()">
+         👤 Entrar / Cadastrar
+      </button>
+    </section>
+
+    <div class="sidebar-footer">
+      <span>IFNMG Janaúba · 2026</span>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+
+    <!-- Topbar -->
+    <header class="topbar" role="banner">
+      <button class="btn-icon topbar-menu" id="btn-open-sidebar" aria-label="Abrir painel lateral" aria-expanded="false" aria-controls="sidebar" style="display:none">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M2 4H14M2 8H14M2 12H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="topbar-title" aria-live="polite">Biblioteca Digital Acessível</div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="library-area" tabindex="-1">
+      <div class="library-container">
+        
+        <!-- Header da Biblioteca -->
+        <header class="library-header">
+          <h1 class="library-title">Acervo Digital</h1>
+          <p class="library-subtitle">Navegue pelos livros disponíveis e selecione um título para iniciar a leitura acessível.</p>
+          
+          <!-- Barra de Pesquisa e Filtro -->
+          <div class="search-box" role="search">
+            <label for="library-search-input" class="sr-only">Pesquisar por título ou autor</label>
+            <input type="search" id="library-search-input" placeholder="Buscar por título ou autor..." aria-label="Pesquisar livros por título ou autor">
+            <button class="btn-icon" id="btn-clear-search" aria-label="Limpar pesquisa" title="Limpar busca">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 2L12 12M12 2L2 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Status e Contador para Leitores de Tela -->
+        <div id="library-status" class="status-count" aria-live="polite" aria-atomic="true">
+          Carregando acervo...
+        </div>
+
+        <!-- Grid de Livros -->
+        <section id="books-grid" class="books-grid" aria-label="Lista de livros disponíveis">
+          <!-- Cards gerados via JS -->
+        </section>
+
+      </div>
+
+      <!-- Barra de Status Inferior -->
+      <div class="status-bar" role="status" aria-live="polite" aria-atomic="true">
+        <span id="status-msg">Pronto</span>
+        <span id="status-offline" class="badge badge-offline" style="display:none" aria-label="Modo offline">Offline</span>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast de Notificação -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Área oculta para VLibras -->
+  <div id="vlibras-text" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;"></div>
+
+  <!-- VLibras Widget -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <!-- Modal de Login -->
+  <div id="modal-auth" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: var(--bg-sidebar); padding: 2rem; border-radius: 8px; width: 90%; max-width: 380px; color: var(--text-primary); text-align: center; border: 1px solid var(--border);">
+      <h2 id="auth-title" style="margin-bottom: 1rem;">Entrar</h2>
+      
+      <form id="form-auth" style="display: flex; flex-direction: column; gap: 0.8rem;">
+        <input type="email" id="auth-email" placeholder="Seu e-mail" required style="padding: 0.7rem; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-input); color: var(--text-primary);">
+        <input type="password" id="auth-senha" placeholder="Sua senha" required style="padding: 0.7rem; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-input); color: var(--text-primary);">
+        
+        <button type="submit" id="btn-auth-submit" class="btn-action" style="padding: 0.7rem; font-weight: bold; cursor: pointer; justify-content: center;">Entrar</button>
+      </form>
+
+      <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-sec);">
+        <span id="auth-toggle-msg">Não tem conta?</span>
+        <a href="#" id="auth-toggle-link" style="color: var(--accent); margin-left: 5px;">Criar conta</a>
+      </div>
+
+      <button id="btn-fechar-auth" style="background: none; border: none; color: var(--text-hint); margin-top: 1rem; cursor: pointer;">Fechar</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>new window.VLibras.Widget();</script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-client.js"></script>
+  <script src="biblioteca.js"></script>
+</body>
+</html>
