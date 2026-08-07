@@ -729,6 +729,12 @@ setTTSState('idle');
 // Tenta restaurar o último PDF aberto antes do recarregamento (F5)
 
 (async function autoRestore() {
+  const parametros = new URLSearchParams(window.location.search);
+
+  if (parametros.get("pdf")) {
+    return;
+  }
+
   const savedName = localStorage.getItem('sr_current_filename');
 
   if (savedName) {
