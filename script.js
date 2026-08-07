@@ -143,7 +143,8 @@ function renderPage(num) {
  statusOcr.style.display = 'none';
 
  state.pdfDoc.getPage(num).then(page => {
- const viewport = page.getViewport({ scale: state.scale });
+const rotacao = num === 1 ? (page.rotate + 180) % 360 : page.rotate;
+const viewport = page.getViewport({ scale: state.scale, rotation: rotacao });
 
  canvas.height = viewport.height;
  canvas.width = viewport.width;
