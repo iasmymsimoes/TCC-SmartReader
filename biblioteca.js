@@ -88,7 +88,7 @@ function renderBooks(books) {
       // Salva a referência no localStorage para o SmartReader consumir
       localStorage.setItem('sr_current_filename', book.titulo || 'Livro Selecionado');
       // Redireciona apontando o proxy para o player
-      window.location.href = `index.html?pdf=${encodeURIComponent(pdfUrl)}&title=${encodeURIComponent(book.titulo || '')}`;
+      window.location.href = `leitor.html?pdf=${encodeURIComponent(pdfUrl)}&title=${encodeURIComponent(book.titulo || '')}`;
     };
 
     readBtn.addEventListener('click', openBook);
