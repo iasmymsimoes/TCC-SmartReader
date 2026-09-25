@@ -134,10 +134,18 @@
             </button>
           </div>
         </header>
+        <!-- Aviso amigável do servidor -->
+<div id="server-notice" style="background: rgba(99, 102, 241, 0.1); border: 1px solid rgba(99, 102, 241, 0.3); padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem;">
+  <span style="font-size: 1.4rem;">⏳</span>
+  <p style="margin: 0; font-size: 0.9rem; color: var(--text-sec); line-height: 1.4;">
+    <strong>Iniciando o servidor...</strong><br>
+    Estamos conectando ao nosso banco de dados. Como o serviço é gratuito, o primeiro acesso pode levar até 1 minuto para carregar o acervo. Agradecemos a paciência para uma melhor experiência!
+  </p>
+</div>
 
         <!-- Status e Contador para Leitores de Tela -->
         <div id="library-status" class="status-count" aria-live="polite" aria-atomic="true">
-          Carregando acervo...
+          Buscando acervo no servidor...
         </div>
 
         <!-- Grid de Livros -->

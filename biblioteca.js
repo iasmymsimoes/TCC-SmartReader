@@ -37,6 +37,8 @@ async function fetchLivros() {
 /* ─── RENDERIZAR CARDS COM ACESSIBILIDADE ─── */
 function renderBooks(books) {
   booksGrid.innerHTML = '';
+  const serverNotice = document.getElementById('server-notice');
+  if (serverNotice) serverNotice.style.display = 'none';
 
   if (!books || books.length === 0) {
     libraryStatus.textContent = "Nenhum livro encontrado.";
@@ -207,3 +209,4 @@ window.addEventListener('focus', () => {
 window.addEventListener('pageshow', () => {
   fetchLivros();
 });
+
